@@ -39,49 +39,53 @@
     </div>
 </div> -->
 
-
-
 <table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Publisher</th>
-      <th scope="col">Title</th>
-      <th scope="col">Issue Date</th>
-      <th scope="col">Issue Number</th>
-      <th scope="col">Barcode</th>
-      <th scope="col">Issue Cost</th>
-      <th scope="col">Condition</th>
-      <th scope="col">Cover</th>
-    </tr>
-  </thead>
-  <tbody>
+	<thead>
+	<tr>
+		<th scope="col">Publisher</th>
+		<th scope="col">Title</th>
+		<th scope="col">Issue Date</th>
+		<th scope="col">Issue Number</th>
+		<!-- <th scope="col">Barcode</th> -->
+		<th scope="col">Issue Cost</th>
+		<th scope="col">Condition</th>
+		<th scope="col">Cover</th>
+	</tr>
+	</thead>
+	<tbody>
   
-    
+	<?php
+	
+		// echo "<div>".
 
-    <?php
-      include("js/dbconnection.php");
+		// 	"<p>"."hello world!"."</p>"
 
-      $sql = "SELECT * FROM `myCBC` WHERE 1";
-    
-      $result = $conn->query($sql) or die($conn->error);
-      
-     
-      while($row = $result->fetch_assoc()) {
+		// ."</div>";
 
-        echo
-          "<tr>
-            <td>".$row['Publisher']."</td>".
-            "<td>".$row['Title']."</td>".
-            "<td>".$row['iDate']."</td>".
-            "<td>".$row['iNumber']."</td>".
-            "<td>".$row['Barcode']."</td>".
-            "<td>".$row['cPrice']."</td>".
-            "<td>".$row['Condition']."</td>".
-            "<td>".'<img src="data:image/jpeg;base64,'.base64_encode($row['img']).' "height="150" width="100"/>';"</td>".
-          "</tr>\n";
-      }
-      
-      $conn->close();
+
+		include("js/dbconnection.php");
+		
+		$sql = "SELECT * FROM `myCBC` WHERE 1";
+
+		$result = $conn->query($sql) or die($conn->error);
+		
+		
+		while($row = $result->fetch_assoc()) {
+
+		echo
+			"<tr>
+			<td>".$row['Publisher']."</td>".
+			"<td>".$row['Title']."</td>".
+			"<td>".$row['iDate']."</td>".
+			"<td>".$row['iNumber']."</td>".
+			// "<td>".$row['Barcode']."</td>".
+			"<td>".$row['cPrice']."</td>".
+			"<td>".$row['Condition']."</td>".
+			"<td>".'<img src="data:image/jpeg;base64,'.base64_encode($row['img']).' "height="75" width="50"/>';"</td>".
+			"</tr>\n";
+		}
+		
+		$conn->close();
     ?>
     
   </tbody>
