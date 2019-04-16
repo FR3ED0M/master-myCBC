@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="css/styles.css?v=1.0">
 		<link rel="stylesheet" href="css/table.css">
 		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/row.css">
 
 	</head>
 
@@ -50,52 +51,80 @@
 					<tr>
 						<th scope="col">Publisher</th>
 						<th scope="col">Title</th>
-						<th scope="col">Issue Number</th>
-						<th scope="col">Issue Date</th>
-						<!-- <th scope="col">Barcode</th> -->
+						<th scope="col">Sub-Title</th>
+						<th scope="col">Issue</th>
+						<th scope="col">Date</th>
 						<th scope="col">Price</th>
 						<th scope="col">Condition</th>
 						<th scope="col">Cover</th>
 					</tr>
 				</thead>
-				
+
 				<tbody>
-					<?php
+				<?php
+
+				// echo "<div>".
+
+				// 	"<p>"."hello world!"."</p>"
+
+				// ."</div>";
+
+
+
+				include("js/dbconnection.php");
+
+				// $sql = "SELECT * FROM `myCBC` WHERE 1";
+
+				$sql = "SELECT bookPublisher.name, Title, subTitle, iNumber, iDate, cPrice, CCondition.value, img
+				FROM myCBC LEFT JOIN CCondition on myCBC.condTag = CCondition.vTag LEFT JOIN bookPublisher on myCBC.tag = bookPublisher.pubId";
+
+				$result = $conn->query($sql) or die($conn->error);
+
+
+				while($row = $result->fetch_assoc()) {
+
+				echo 
+
+				// "<div id=column style=width:50%>".
 					
-						// echo "<div>".
+				// 	"<div id=left style=float:left;width:25%;padding-right:5% class=main>"
+				// 	.
+				// 		"<p>".'<img src="data:image/jpeg;base64,'.base64_encode($row['img']).' "height="250" width="175"/>'."</p>"
+				// 		.
+				// 		"<p>".$row['name']."</p>"
+				// 		.
+				// 		"<p>".$row['Title']."</p>"
+				// 		.
+				// 		"<p>".$row['subTitle']."</p>"
+				// 		.
+				// 		"<p>".$row['iNumber']."</p>"
+				// 		.
+				// 		"<p>".$row['iDate']."</p>"
+				// 		.
+				// 		"<p>".$row['cPrice']."</p>"
+				// 		.
+				// 		"<p>".$row['value']."</p>"
+				// 	."<br>	
+				// 	</div>
 
-						// 	"<p>"."hello world!"."</p>"
+				// </div>";
 
-						// ."</div>";
+				
+					"<tr>
+						<td>".$row['name']."</td>".
+						"<td>".$row['Title']."</td>".
+						"<td>".$row['subTitle']."</td>".
+						"<td>".$row['iNumber']."</td>".
+						"<td>".$row['iDate']."</td>".
+						"<td>".$row['cPrice']."</td>".
+						"<td>".$row['value']."</td>".
+						"<td>".'<img src="data:image/jpeg;base64,'.base64_encode($row['img']).' "height="250" width="175"/>';"</td>".
+					"</tr>\n";
 
+				}
 
-						include("js/dbconnection.php");
-						
-						// $sql = "SELECT * FROM `myCBC` WHERE 1";
-
-						$sql = "SELECT bookPublisher.name, Title, iNumber, iDate, cPrice, CCondition.value, img
-								FROM myCBC LEFT JOIN CCondition on myCBC.condTag = CCondition.vTag LEFT JOIN bookPublisher on myCBC.tag = bookPublisher.pubId";
-
-						$result = $conn->query($sql) or die($conn->error);
-						
-						
-						while($row = $result->fetch_assoc()) {
-
-						echo
-							"<tr>
-							<td>".$row['name']."</td>".
-							"<td>".$row['Title']."</td>".
-							"<td>".$row['iNumber']."</td>".
-							"<td>".$row['iDate']."</td>".
-							// "<td>".$row['Barcode']."</td>".
-							"<td>".$row['cPrice']."</td>".
-							"<td>".$row['value']."</td>".
-							"<td>".'<img src="data:image/jpeg;base64,'.base64_encode($row['img']).' "height="75" width="50"/>';"</td>".
-							"</tr>\n";
-						}
-						
-						$conn->close();
-					?>
+				$conn->close();
+				?>
 				</tbody>
 			</table>
 		</section>
